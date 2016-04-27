@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<JScopeProject>
+    <FileVersion major="1" minor="1" />
+    <Project>
+        <Configuration>
+            <JLink>
+                <Options IsRTTSession="0" IsRTTWithTimeStamp="1" SamplingPeriod="20000" Connection="1" SerialNo="0" IP="" TargetDevice="unspecified" TargetInterface="SWD" InterfaceSpeed="4000" />
+            </JLink>
+            <ElfFile Name="E:\项目\51822\st资料\test\51822_qfndemo\51822_st401\MDK-ARM\51822_st401\51822_st401.axf" />
+            <DataFile Name="" />
+            <RawFile Name="" />
+            <Scope>
+                <Options TimeResolutionUs="1000000" />
+            </Scope>
+        </Configuration>
+        <Windows>
+            <Graph Show="0" />
+            <Watch Show="1" />
+        </Windows>
+        <SelectedSymbols>
+            <Symbol>
+                <Options Name="step_data" Address="0x20000098" Type="uint" TypeID="8" Size="4" GraphColorRed="255" GraphColorGreen="215" GraphColorBlue="0" YMinSampled="19" YMaxSampled="8387" YAvgSampled="8316" Offset="4" ShowInGraph="1" YOffset="200" IsAutoConfig="1" YResolution="50" MaxValue="154" File="..\eric-src\comm.c" Scope="0" DrawStyle="0" />
+            </Symbol>
+            <Symbol>
+                <Options Name="hrs_data" Address="0x2000009C" Type="uchar" TypeID="6" Size="1" GraphColorRed="0" GraphColorGreen="255" GraphColorBlue="0" YMinSampled="0" YMaxSampled="0" YAvgSampled="0" Offset="8" ShowInGraph="0" YOffset="200" IsAutoConfig="1" YResolution="1" MaxValue="3" File="..\eric-src\comm.c" Scope="0" DrawStyle="0" />
+            </Symbol>
+            <Symbol>
+                <Options Name="batt_status" Address="0x2000009D" Type="uchar" TypeID="6" Size="1" GraphColorRed="0" GraphColorGreen="0" GraphColorBlue="255" YMinSampled="0" YMaxSampled="0" YAvgSampled="0" Offset="9" ShowInGraph="0" YOffset="200" IsAutoConfig="1" YResolution="1" MaxValue="3" File="..\eric-src\comm.c" Scope="0" DrawStyle="0" />
+            </Symbol>
+        </SelectedSymbols>
+    </Project>
+</JScopeProject>

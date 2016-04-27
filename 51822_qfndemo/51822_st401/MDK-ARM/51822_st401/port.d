@@ -1,0 +1,13 @@
+51822_st401\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/port.c
+51822_st401\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+51822_st401\port.o: d:\develop\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+51822_st401\port.o: d:\develop\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+51822_st401\port.o: ../Inc/FreeRTOSConfig.h
+51822_st401\port.o: ../Inc/mxconstants.h
+51822_st401\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+51822_st401\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+51822_st401\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+51822_st401\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+51822_st401\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+51822_st401\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+51822_st401\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h

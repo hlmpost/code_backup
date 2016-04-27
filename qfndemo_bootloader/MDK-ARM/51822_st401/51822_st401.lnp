@@ -1,0 +1,31 @@
+--cpu Cortex-M4.fp
+"51822_st401\usart.o"
+"51822_st401\stm32f4xx_hal_msp.o"
+"51822_st401\stm32f4xx_it.o"
+"51822_st401\main.o"
+"51822_st401\gpio.o"
+"51822_st401\comm.o"
+"51822_st401\startup_stm32f401xe.o"
+"51822_st401\stm32f4xx_hal_flash.o"
+"51822_st401\stm32f4xx_hal_tim.o"
+"51822_st401\stm32f4xx_hal_rtc.o"
+"51822_st401\stm32f4xx_hal.o"
+"51822_st401\stm32f4xx_hal_tim_ex.o"
+"51822_st401\stm32f4xx_hal_dma.o"
+"51822_st401\stm32f4xx_hal_rcc.o"
+"51822_st401\stm32f4xx_hal_uart.o"
+"51822_st401\stm32f4xx_hal_rcc_ex.o"
+"51822_st401\stm32f4xx_hal_pwr_ex.o"
+"51822_st401\stm32f4xx_hal_rtc_ex.o"
+"51822_st401\stm32f4xx_hal_gpio.o"
+"51822_st401\stm32f4xx_hal_flash_ramfunc.o"
+"51822_st401\stm32f4xx_hal_pwr.o"
+"51822_st401\stm32f4xx_hal_dma_ex.o"
+"51822_st401\stm32f4xx_hal_flash_ex.o"
+"51822_st401\stm32f4xx_hal_cortex.o"
+"51822_st401\system_stm32f4xx.o"
+--library_type=microlib --strict --scatter "51822_st401\51822_st401.sct"
+
+--diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "51822_st401.map" -o 51822_st401\51822_st401.axf

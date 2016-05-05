@@ -51,6 +51,13 @@ osThreadId defaultTaskHandle;
 
 /* USER CODE BEGIN Variables */
 extern RTC_HandleTypeDef hrtc;
+extern ADC_HandleTypeDef hadc1;
+extern I2C_HandleTypeDef hi2c1;
+extern I2C_HandleTypeDef hi2c2;
+extern SPI_HandleTypeDef hspi1;
+extern UART_HandleTypeDef huart2;
+extern TIM_HandleTypeDef htim3;
+
 
 extern stru_para sys_para;
 
@@ -140,6 +147,78 @@ void send_message(uint8_t message)
 		osSignalSet(wake_TaskHandle, message);
 }
 //---------------------------------------------------------
+void eric_sleep()
+{
+	  GPIO_InitTypeDef GPIO_InitStruct;
+	
+		//HAL_I2C_MspDeInit(&hi2c1);
+		//HAL_I2C_MspDeInit(&hi2c2);
+		HAL_SPI_MspDeInit(&hspi1);
+		//HAL_TIM_PWM_MspDeInit(&htim3);
+	
+		//HAL_UART_MspDeInit(&huart2);
+		//uart
+//		GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+//		GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+//		GPIO_InitStruct.Pull = GPIO_PULLUP;
+//		GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3;
+//		HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
+//	//i2c
+//		GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+//		GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+//		GPIO_InitStruct.Pull = GPIO_NOPULL;
+//		GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_3;
+//		HAL_GPIO_Init(GPIOB, &GPIO_InitStruct); 
+
+
+		return;
+
+
+}
+
+void eric_wakeup()
+{
+	  GPIO_InitTypeDef GPIO_InitStruct;
+	
+		//HAL_I2C_MspInit(&hi2c1);
+		//HAL_I2C_MspInit(&hi2c2);
+		HAL_SPI_MspInit(&hspi1);
+		//HAL_TIM_PWM_MspInit(&htim3);
+		//HAL_TIM_MspPostInit(&htim3);
+			//HAL_UART_MspInit(&huart2);
+	//uart
+//			GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3;
+//			GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+//			GPIO_InitStruct.Pull = GPIO_PULLUP;
+//			GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+//			GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
+//			HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+//	//i2c
+//		GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
+//    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+//    GPIO_InitStruct.Pull = GPIO_PULLUP;
+//    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+//    GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
+//    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+//		
+//		GPIO_InitStruct.Pin = GPIO_PIN_10;
+//    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+//    GPIO_InitStruct.Pull = GPIO_PULLUP;
+//    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+//    GPIO_InitStruct.Alternate = GPIO_AF4_I2C2;
+//    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+//    GPIO_InitStruct.Pin = GPIO_PIN_3;
+//    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+//    GPIO_InitStruct.Pull = GPIO_PULLUP;
+//    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+//    GPIO_InitStruct.Alternate = GPIO_AF9_I2C2;
+//    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+
+
+		return;	
+}
 
 /* USER CODE END FunctionPrototypes */
 
@@ -152,17 +231,106 @@ void PostSleepProcessing(uint32_t *ulExpectedIdleTime);
 /* USER CODE BEGIN PREPOSTSLEEP */
 void PreSleepProcessing(uint32_t *ulExpectedIdleTime)
 {
+		uint32_t temp=0,i=0;
+
+  GPIO_InitTypeDef GPIO_InitStruct;
 
 	if(init_finish<1)
 		return;
+		eric_sleep();
+
 /* place for user code */ 
 	osThreadSuspendAll();
-//	sleep_count++;
-//		SEGGER_RTT_printf(0,"PreSleepProcessing:%d\r\n",sleep_count);	
-//	if(sleep_count>250)
-//		sleep_count=1;
+	//------------------------------
+			//SEGGER_RTT_printf(0,"PreSleepProcessing\r\n");	
+//----------------------------------
+#if 0
+	HAL_I2C_MspDeInit(&hi2c1);
+	HAL_I2C_MspDeInit(&hi2c2);
+	HAL_SPI_MspDeInit(&hspi1);
+	//HAL_UART_MspDeInit(&huart2);
+	HAL_TIM_PWM_MspDeInit(&htim3);
+	//gpio deinit
+	//adc
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pin = GPIO_PIN_0;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
+	//uart
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
+	//i2c1,2
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_3;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct); 
+	//spi
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct); 
 	
-		__GPIOC_CLK_DISABLE();
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pin = GPIO_PIN_5;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+	//other gpa
+	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Pin =GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_15;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
+
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8;
+	//GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_15;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
+	
+	//other gpb
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+	GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct); 
+	
+//	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+//  GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
+//  GPIO_InitStruct.Pull = GPIO_NOPULL;
+//  GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_15;
+//  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
+	
+//	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+//  GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
+//  GPIO_InitStruct.Pull = GPIO_NOPULL;
+//  GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12;
+//  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
+//  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10|GPIO_PIN_12|GPIO_PIN_13, GPIO_PIN_RESET);
+
+	//gpiob
+//	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+//  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+//  GPIO_InitStruct.Pull = GPIO_NOPULL;
+//  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
+//  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+#endif
+
+//	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+//  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+//  GPIO_InitStruct.Pull = GPIO_NOPULL;
+//  GPIO_InitStruct.Pin = GPIO_PIN_6;
+//  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+//	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
+//----------------------------------
+	__GPIOC_CLK_DISABLE();
   __GPIOA_CLK_DISABLE();
   __GPIOB_CLK_DISABLE();
 
@@ -172,6 +340,7 @@ void PreSleepProcessing(uint32_t *ulExpectedIdleTime)
 
   /* Set SLEEPDEEP bit of Cortex System Control Register */
 	MODIFY_REG(PWR->CR, (PWR_CR_PDDS | PWR_CR_LPDS), PWR_LOWPOWERREGULATOR_ON);
+	//SET_BIT(PWR->CR, PWR_CR_PDDS);
   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 
 
@@ -179,6 +348,8 @@ void PreSleepProcessing(uint32_t *ulExpectedIdleTime)
 
 void PostSleepProcessing(uint32_t *ulExpectedIdleTime)
 {
+	uint32_t temp=0,i=0;
+	GPIO_InitTypeDef GPIO_InitStruct;
 	if(init_finish<1)
 		return;
 
@@ -188,14 +359,125 @@ void PostSleepProcessing(uint32_t *ulExpectedIdleTime)
 /* place for user code */
   SystemClock_Config();
 	
-  __GPIOC_CLK_ENABLE();
+
+	
+	__GPIOC_CLK_ENABLE();
   __GPIOA_CLK_ENABLE();
   __GPIOB_CLK_ENABLE();
+
+
+	//HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
+		osThreadResumeAll();
 	
-	osThreadResumeAll();
+
+
+#if 0
+//	for(i=23;i<39;i++)
+//	{
+//		temp=HAL_NVIC_GetPendingIRQ(i);
+//		if(temp!=0)
+//			break;
+//	}
+//	temp=0;
+//	for(i=40;i<43;i++)
+//	{
+//		temp=HAL_NVIC_GetPendingIRQ(i);
+//		if(temp!=0)
+//			break;
+//	}
+//	temp=0;
+//	for(i=60;i<74;i++)
+//	{
+//		temp=HAL_NVIC_GetPendingIRQ(i);
+//		if(temp!=0)
+//			break;
+//	}
+
+	//wakeup-----------------------------
+		//gpio init
+	 /*Configure GPIO pins : PA1 PA9 PA10 PA12 */
+  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_12;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PA4 PA7 PA8 PA15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PB0 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PB1 PB13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PB12 */
+  GPIO_InitStruct.Pin = GPIO_PIN_12;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PB14 PB15 PB7 */
+  GPIO_InitStruct.Pin = GPIO_PIN_14|GPIO_PIN_15|GPIO_PIN_7;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PA11 */
+  GPIO_InitStruct.Pin = GPIO_PIN_11;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_15, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12|GPIO_PIN_13, GPIO_PIN_SET);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI0_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI1_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+
+		//gpio init end
+	HAL_I2C_MspInit(&hi2c1);
+	HAL_I2C_MspInit(&hi2c2);
+	HAL_SPI_MspInit(&hspi1);
+	//HAL_UART_MspInit(&huart2);
+	HAL_TIM_PWM_MspInit(&htim3);
+	HAL_TIM_MspPostInit(&htim3);
+	#endif
+
+	//------------------------------
+	eric_wakeup();
+
 	
 //		wake_count++;
-//		SEGGER_RTT_printf(0,"PostSleepProcessing:%d\r\n",wake_count);	
+		//SEGGER_RTT_printf(0,"PostSleepProcessing\r\n");	
 //	if(wake_count>250)
 //		wake_count=1;
 }
@@ -388,6 +670,9 @@ void func_touchTask(void const * argument)
 	while(1)
 	{
 		osSignalWait(0x1, osWaitForever);
+		//test
+		//continue;
+		
 		temp=handleEvents();
 		if(disp_flag==1)
 			continue;
@@ -420,6 +705,12 @@ void func_sensorTask(void const * argument)
 	while(1)
 	{
 		osSignalWait(0x2, osWaitForever);
+		
+		//test
+//		rtc_flag=0;
+//		sensor_flag=0;
+//		continue;
+		
 		sensor_flag=1;
 		//osDelay(2000);
 		//step
@@ -514,6 +805,11 @@ void func_buttonTask(void const * argument)
 	while(1)
 	{
 		osSignalWait(0x5, osWaitForever);
+		//test
+//		button_flag=0;
+//		set_mode_flag=0;
+//		continue;
+		
 		if(set_mode_flag==1)
 		{
 			if(current_mode==1)//sport mode

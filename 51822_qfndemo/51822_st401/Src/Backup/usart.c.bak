@@ -163,7 +163,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 							buffer[index]=temp;
 							index++;
 							command_start=2;
-							SEGGER_RTT_printf(0,"command ok,index=%d;command_start=%d\r\n",index,command_start);	
+							//SEGGER_RTT_printf(0,"command ok,index=%d;command_start=%d\r\n",index,command_start);	
 						}
 						else
 						{
@@ -188,7 +188,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 									command_start=0;//»Ö¸´
 									buffer[0]=command_len;
 									send_message(3);
-									SEGGER_RTT_printf(0,"data ok,len=%d\r\n",command_len);	
+									//SEGGER_RTT_printf(0,"data ok,len=%d\r\n",command_len);	
 								}
 								else
 									index++;
@@ -199,7 +199,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 							index=1;
 							command_start=0;//restore
 					}
-					SEGGER_RTT_printf(0,"get data:%x!\r\n",temp);	
+					//SEGGER_RTT_printf(0,"get data:%x!\r\n",temp);	
 					HAL_UART_Receive_IT(&huart2,&temp,1);
         }
 }

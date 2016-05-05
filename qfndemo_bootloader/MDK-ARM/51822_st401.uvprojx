@@ -365,7 +365,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F401xE</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc; ../Drivers/STM32F4xx_HAL_Driver/Inc; ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy; ../Drivers/CMSIS/Include; ../Drivers/CMSIS/Device/ST/STM32F4xx/Include</IncludePath>
+              <IncludePath>../Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Include;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;..\Src\RTT</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -437,6 +437,16 @@
               <FileName>comm.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Src\comm.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\RTT\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\RTT\SEGGER_RTT_printf.c</FilePath>
             </File>
           </Files>
         </Group>

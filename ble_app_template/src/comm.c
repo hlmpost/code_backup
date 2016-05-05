@@ -73,7 +73,7 @@ uint16_t get_len(uint8_t *data)
 void rece_dispatch(uint8_t *data)
 {
 	uint8_t len=data[0];
-	uint8_t *temp;
+	uint16_t temp=0;
 	if(data[1]!=0xfe || data[2]!=0x05 || (data[len]!=check_sum(&data[1],len-1)) )
 	{
 		//收到错误命令回复
@@ -82,20 +82,18 @@ void rece_dispatch(uint8_t *data)
 	//解析命令
 	switch(data[3])
 	{
-		case 0xaa://同步传感器数据
-			
+		case 0x01:
+			break;
+		case 0x07://直接发送数据到手机
+			send_data_phone(&data[1],len);
+			temp=data[6];
+			temp=(temp<<8)|data[5];
+			send_confirm(temp);
+			break;
+		case 0x21://return phone update sortno
 			break;
 		default:
-			//直接发送数据到手机
-		  //big data need confirm
-			send_data_phone(&data[1],len);
-			if(data[3]==0x07)
-			{
-				uint16_t temp=data[6];
-				temp=(temp<<8)|data[5];
-				send_confirm(temp);
-			}
-
+			send_shakehand(1);
 			return;
 	};
 }

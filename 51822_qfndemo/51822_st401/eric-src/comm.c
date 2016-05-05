@@ -18,6 +18,8 @@ extern stru_header data_header[];//not point,must array
 extern uint8_t curr_index;//当前正在写的信息头索引
 
 extern stru_para sys_para;
+extern RTC_HandleTypeDef hrtc;
+
 
 //当前模式
 extern volatile uint8_t current_mode;//normal=0,sport=1,sleep=2
@@ -223,15 +225,18 @@ void rece_dispatch()
 			break;
 		case 0x02://初始化flash存储区
 			flash_format();
+			send_shakehand(1);
 			break;
 		case 0x03://收到时间设置命令
 			RTC_Set_datetime(&buffer[5]);
 			RTC_AlarmConfig(buffer[8],buffer[9]+1);
 			//SEGGER_RTT_printf(0,"set_time=%02d-%02d-%02d;%02d-%02d-%02d;\r\n",buffer[5],buffer[6],buffer[7],buffer[8],buffer[9],buffer[10]);
+			send_shakehand(1);
 			break;
 		case 0x04://step length
 			sys_para.step_len=buffer[5];
 			sys_para.height=*(uint16_t *)(&buffer[6]);
+			send_shakehand(1);
 			//flash_erase_para_sector();
 			break;
 		case 0x05://return serial number
@@ -247,6 +252,7 @@ void rece_dispatch()
 			break;
 		case 0x09://phone notify info
 			phone_nitofy_data(buffer[5]);
+			send_shakehand(1);
 			break;
 		case 0x0a://read current mode
 			send_mode();
@@ -260,6 +266,7 @@ void rece_dispatch()
 				set_mode_flag=1;
 				send_message(5);
 			}
+			send_shakehand(1);
 			break;
 		case 0xab://batch data transmit
 			//judge length,now day data length=1440/3=480
@@ -269,18 +276,25 @@ void rece_dispatch()
 			else
 				break;
 			break;
+		case 0x20://update
+			//jump bootloader
+			HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR2, 0xabcd);
+		  HAL_NVIC_SystemReset();
+			while(1);
+			break;
 		default:
 			send_shakehand(0);//收到异常命令S
 			return;
 	};
 		//SEGGER_RTT_printf(0,"rece comm=%x;\r\n",buffer[3]);
 
-	if(command!=0x01 && command!=0x7 && command!=0xab)
+	//if(command!=0x01 && command!=0x7 && command!=0xab)
 	{
 		//回复确认收到
-		if(error==0)
-			send_shakehand(1);
-		else
+		//if(error==0)
+		//	send_shakehand(1);
+		//else
+		if(error==1)
 			send_shakehand(0);
 	}
 

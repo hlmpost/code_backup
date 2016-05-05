@@ -309,8 +309,8 @@
               </OCR_RVCT3>
               <OCR_RVCT4>
                 <Type>1</Type>
-                <StartAddress>0x8008000</StartAddress>
-                <Size>0x38000</Size>
+                <StartAddress>0x8000000</StartAddress>
+                <Size>0x80000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -365,7 +365,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F401xE</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;            ../Drivers/STM32F4xx_HAL_Driver/Inc;            ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;            ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;            ../Middlewares/Third_Party/FreeRTOS/Source/include;            ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;            ../Drivers/CMSIS/Include;            ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;            ..\eric-src;            ..\eric-src\RTT</IncludePath>
+              <IncludePath>../Inc;             ../Drivers/STM32F4xx_HAL_Driver/Inc;             ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;             ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;             ../Middlewares/Third_Party/FreeRTOS/Source/include;             ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;             ../Drivers/CMSIS/Include;             ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;             ..\eric-src;             ..\eric-src\RTT</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

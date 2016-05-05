@@ -62,7 +62,7 @@
 
 #define DEVICE_NAME                      "eric_demo"                               /**< Name of device. Will be included in the advertising data. */
 #define MANUFACTURER_NAME                "GWI"                      /**< Manufacturer. Will be passed to Device Information Service. */
-#define APP_ADV_INTERVAL                 300                                        /**< The advertising interval (in units of 0.625 ms. This value corresponds to 25 ms). */
+#define APP_ADV_INTERVAL                 1000                                        /**< The advertising interval (in units of 0.625 ms. This value corresponds to 25 ms). */
 #define APP_ADV_TIMEOUT_IN_SECONDS       180                                        /**< The advertising timeout in units of seconds. */
 
 #define APP_TIMER_PRESCALER              0                                          /**< Value of the RTC1 PRESCALER register. */
@@ -227,8 +227,8 @@ static ble_yy_service_t                     m_yys;
 */
 
 // YOUR_JOB: Use UUIDs for service(s) used in your application.
-static ble_uuid_t m_adv_uuids[] = {{BLE_UUID_HEART_RATE_SERVICE, BLE_UUID_TYPE_BLE},
-								     {BLE_UUID_BATTERY_SERVICE,			  BLE_UUID_TYPE_BLE},
+static ble_uuid_t m_adv_uuids[] = {//{BLE_UUID_HEART_RATE_SERVICE, BLE_UUID_TYPE_BLE},
+								     //{BLE_UUID_BATTERY_SERVICE,			  BLE_UUID_TYPE_BLE},
 									 //{BLE_UUID_DEVICE_INFORMATION_SERVICE, BLE_UUID_TYPE_BLE},
 									 {BLE_UUID_WECHAT_SERVICE, BLE_UUID_TYPE_BLE}
 									// {BLE_UUID_NUS_SERVICE, BLE_UUID_TYPE_VENDOR_BEGIN}
@@ -275,11 +275,11 @@ static void timers_init(void)
     err_code = app_timer_create(&m_app_timer_id, APP_TIMER_MODE_REPEATED, timer_timeout_handler);
     APP_ERROR_CHECK(err_code); */
 	//led blinky
-	uint32_t err_code;
-    err_code = app_timer_create(&m_blinky_timer_id,APP_TIMER_MODE_REPEATED,blinky_timeout_handler);
-	nrf_gpio_cfg_output(7);
-	//sensor timer
-	err_code = app_timer_create(&m_sensor_timer_id,APP_TIMER_MODE_REPEATED,sensor_timeout_handler);
+//	uint32_t err_code;
+//    err_code = app_timer_create(&m_blinky_timer_id,APP_TIMER_MODE_REPEATED,blinky_timeout_handler);
+//	nrf_gpio_cfg_output(7);
+//	//sensor timer
+//	err_code = app_timer_create(&m_sensor_timer_id,APP_TIMER_MODE_REPEATED,sensor_timeout_handler);
 
 	
 }
@@ -384,22 +384,21 @@ static void services_init(void)
 	uint8_t		body_sensor_location;
     #if 1
 	 // Initialize Battery Service.
-    memset(&bas_init, 0, sizeof(bas_init));
+//    memset(&bas_init, 0, sizeof(bas_init));
+//    // Here the sec level for the Battery Service can be changed/increased.
+//    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&bas_init.battery_level_char_attr_md.cccd_write_perm);
+//    BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&bas_init.battery_level_char_attr_md.read_perm);
+//    BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&bas_init.battery_level_char_attr_md.write_perm);
 
-    // Here the sec level for the Battery Service can be changed/increased.
-    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&bas_init.battery_level_char_attr_md.cccd_write_perm);
-    BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&bas_init.battery_level_char_attr_md.read_perm);
-    BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&bas_init.battery_level_char_attr_md.write_perm);
+//    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&bas_init.battery_level_report_read_perm);
 
-    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&bas_init.battery_level_report_read_perm);
+//    bas_init.evt_handler          = NULL;
+//    bas_init.support_notification = true;
+//    bas_init.p_report_ref         = NULL;
+//    bas_init.initial_batt_level   = 100;
 
-    bas_init.evt_handler          = NULL;
-    bas_init.support_notification = true;
-    bas_init.p_report_ref         = NULL;
-    bas_init.initial_batt_level   = 100;
-
-    err_code = ble_bas_init(&m_bas, &bas_init);
-    APP_ERROR_CHECK(err_code);
+//    err_code = ble_bas_init(&m_bas, &bas_init);
+//    APP_ERROR_CHECK(err_code);
 
     // Initialize Device Information Service.
     #if 0
@@ -414,24 +413,24 @@ static void services_init(void)
     APP_ERROR_CHECK(err_code);
 	#endif
 	// Initialize Heart Rate Service.
-	   body_sensor_location = BLE_HRS_BODY_SENSOR_LOCATION_WRIST;
-	
-	   memset(&hrs_init, 0, sizeof(hrs_init));
-	
-	   hrs_init.evt_handler 				= NULL;
-	   hrs_init.is_sensor_contact_supported = true;
-	   hrs_init.p_body_sensor_location		= &body_sensor_location;
-	
-	   // Here the sec level for the Heart Rate Service can be changed/increased.
-	   BLE_GAP_CONN_SEC_MODE_SET_OPEN(&hrs_init.hrs_hrm_attr_md.cccd_write_perm);
-	   BLE_GAP_CONN_SEC_MODE_SET_OPEN(&hrs_init.hrs_hrm_attr_md.read_perm);
-	   BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&hrs_init.hrs_hrm_attr_md.write_perm);
-	
-	   BLE_GAP_CONN_SEC_MODE_SET_OPEN(&hrs_init.hrs_bsl_attr_md.read_perm);
-	   BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&hrs_init.hrs_bsl_attr_md.write_perm);
-	
-	   err_code = ble_hrs_init(&m_hrs, &hrs_init);
-	   APP_ERROR_CHECK(err_code);
+//	   body_sensor_location = BLE_HRS_BODY_SENSOR_LOCATION_WRIST;
+//	
+//	   memset(&hrs_init, 0, sizeof(hrs_init));
+//	
+//	   hrs_init.evt_handler 				= NULL;
+//	   hrs_init.is_sensor_contact_supported = true;
+//	   hrs_init.p_body_sensor_location		= &body_sensor_location;
+//	
+//	   // Here the sec level for the Heart Rate Service can be changed/increased.
+//	   BLE_GAP_CONN_SEC_MODE_SET_OPEN(&hrs_init.hrs_hrm_attr_md.cccd_write_perm);
+//	   BLE_GAP_CONN_SEC_MODE_SET_OPEN(&hrs_init.hrs_hrm_attr_md.read_perm);
+//	   BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&hrs_init.hrs_hrm_attr_md.write_perm);
+//	
+//	   BLE_GAP_CONN_SEC_MODE_SET_OPEN(&hrs_init.hrs_bsl_attr_md.read_perm);
+//	   BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&hrs_init.hrs_bsl_attr_md.write_perm);
+//	
+//	   err_code = ble_hrs_init(&m_hrs, &hrs_init);
+//	   APP_ERROR_CHECK(err_code);
 //Initialize wechat service
 #if 0
 	err_code = ble_wechat_add_service(&m_ble_wechat);
@@ -440,7 +439,6 @@ static void services_init(void)
 	APP_ERROR_CHECK(err_code);
 #endif
 memset(&step_init, 0, sizeof(step_init));
-
 // Here the sec level for the Battery Service can be changed/increased.
 BLE_GAP_CONN_SEC_MODE_SET_OPEN(&step_init.step_count_char_attr_md.cccd_write_perm);
 BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&step_init.step_count_char_attr_md.read_perm);
@@ -514,8 +512,8 @@ static void conn_params_init(void)
     cp_init.first_conn_params_update_delay = FIRST_CONN_PARAMS_UPDATE_DELAY;
     cp_init.next_conn_params_update_delay  = NEXT_CONN_PARAMS_UPDATE_DELAY;
     cp_init.max_conn_params_update_count   = MAX_CONN_PARAMS_UPDATE_COUNT;
-    //cp_init.start_on_notify_cccd_handle    = BLE_GATT_HANDLE_INVALID;
-    cp_init.start_on_notify_cccd_handle    = m_hrs.hrm_handles.cccd_handle;
+    cp_init.start_on_notify_cccd_handle    = BLE_GATT_HANDLE_INVALID;
+    //cp_init.start_on_notify_cccd_handle    = m_hrs.hrm_handles.cccd_handle;
 
     cp_init.disconnect_on_fail             = false;
     cp_init.evt_handler                    = on_conn_params_evt;
@@ -935,11 +933,10 @@ int main(void)
 { 
     uint32_t err_code;
     bool erase_bonds;
-	static uint16_t count=0;
 	
 	//-----------------------------------------------
 	
-#if 1
+#if 0
 	//eric-han:test gpioe ppi
 		uint32_t in_evt_addr;
     uint32_t out_task_addr;
@@ -975,6 +972,7 @@ SEGGER_RTT_Init();
 	eric_uart_Init();
 	comm_init();
 	timers_init();
+	//io_sleep();
 		
   // Initialize.
   ble_stack_init();
@@ -988,16 +986,18 @@ SEGGER_RTT_Init();
     conn_params_init();
  
     // Start execution.
-    application_timers_start();
+    //application_timers_start();
     err_code = ble_advertising_start(BLE_ADV_MODE_FAST);
 		APP_ERROR_CHECK(err_code);
-
+		
+		//test
+    //NRF_POWER->SYSTEMOFF=1;
+		
     // Enter main loop.
     for (;;)
     { 
 			  if(rece_flag==1)
 				{
-					count++;
 					rece_flag=0;
 					rece_dispatch(buffer);
 				}

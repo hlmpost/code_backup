@@ -178,9 +178,8 @@ void HAL_RTCEx_WakeUpTimerEventCallback(RTC_HandleTypeDef * hrtc)
 void rtc_init()
 {
   HAL_RTCEx_DeactivateWakeUpTimer(&hrtc);
-
+	HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR2, 0xaaaa);
 	osMutexDef(rtc_mutex); 
 	rtc_mutex = osMutexCreate(osMutex(rtc_mutex));
-
 }
 

@@ -191,19 +191,6 @@ void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *I2cHandle)
 {
 }
 //---------------------------------
-//but  sleep have error
-	void eric_sleep_i2c()
-	{
-		HAL_I2C_DeInit(&hi2c1);
-		HAL_I2C_DeInit(&hi2c2);
-
-	}
-	void eric_wake_i2c()
-	{
-		MX_I2C1_Init();
-		MX_I2C2_Init();
-	}
-
 
 /* USER CODE END 1 */
 

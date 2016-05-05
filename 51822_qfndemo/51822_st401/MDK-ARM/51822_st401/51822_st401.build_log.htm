@@ -22,44 +22,122 @@ Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
 E:\项目\51822\st资料\test\51822_qfndemo\51822_st401\MDK-ARM\51822_st401.uvprojx
-Project File Date:  04/23/2016
+Project File Date:  05/05/2016
 
 <h2>Output:</h2>
 Build target '51822_st401'
-compiling eric_flash.c...
+compiling freertos.c...
 ..\eric-src\eric_flash.h(51): warning:  #1-D: last line of file ends without a newline
   #endif
-..\eric-src\eric_flash.c(81): warning:  #223-D: function "SEGGER_RTT_printf" declared implicitly
-                SEGGER_RTT_printf(0,"flash_read:0x%x=0x%x\r\n",(Address+i),*(Address+i));
-..\eric-src\eric_flash.c(99): warning:  #223-D: function "SEGGER_RTT_printf" declared implicitly
-                        SEGGER_RTT_printf(0,"flash_erase_sector:sector_no is error\r\n");
-..\eric-src\eric_flash.c(107): warning:  #223-D: function "SEGGER_RTT_printf" declared implicitly
-                                        SEGGER_RTT_printf(0,"erase is error\r\n");
-..\eric-src\eric_flash.c(134): warning:  #223-D: function "SEGGER_RTT_printf" declared implicitly
-                                        SEGGER_RTT_printf(0,"erase is error\r\n");
-..\eric-src\eric_flash.c(166): warning:  #223-D: function "RTC_Read_datetime" declared implicitly
-        RTC_Read_datetime(curr_time,1);
-..\eric-src\eric_flash.c(203): warning:  #223-D: function "SEGGER_RTT_printf" declared implicitly
-                SEGGER_RTT_printf(0,"flash_write_movedata:data have been writed\r\n");
-..\eric-src\eric_flash.c(242): warning:  #223-D: function "RTC_AlarmConfig" declared implicitly
-        RTC_AlarmConfig(hour,min);
-..\eric-src\eric_flash.c(243): warning:  #223-D: function "SEGGER_RTT_printf" declared implicitly
-        SEGGER_RTT_printf(0,"flash_write_movedata:index=%d;address=%x;time=%d:%d;write_add=0x%x,step=%d\r\n",curr_index,data_header[curr_index].start_add,curr_time[0],curr_time[1],temp_add,sensor_data->step_count);
-..\eric-src\eric_flash.c(157): warning:  #177-D: variable "i" was declared but never referenced
-        uint8_t i=0;
-..\eric-src\eric_flash.c(271): warning:  #223-D: function "SEGGER_RTT_printf" declared implicitly
-                SEGGER_RTT_printf(0,"erase is error\r\n");
-..\eric-src\eric_flash.c(274): warning:  #223-D: function "SEGGER_RTT_printf" declared implicitly
-                        SEGGER_RTT_printf(0,"erase is ok\r\n");
-..\eric-src\eric_flash.c(292): warning:  #223-D: function "memset" declared implicitly
-                        memset(data_header+i,0,sizeof(stru_header));//emtpy memory
-..\eric-src\eric_flash.c(13): warning:  #177-D: variable "Address" was declared but never referenced
-  static uint32_t FirstSector = 0, NbOfSectors = 0, Address = 0;
-..\eric-src\eric_flash.c: 14 warnings, 0 errors
+../Src/freertos.c(152): warning:  #177-D: variable "GPIO_InitStruct" was declared but never referenced
+          GPIO_InitTypeDef GPIO_InitStruct;
+../Src/freertos.c(181): warning:  #177-D: variable "GPIO_InitStruct" was declared but never referenced
+          GPIO_InitTypeDef GPIO_InitStruct;
+../Src/freertos.c(234): warning:  #177-D: variable "temp" was declared but never referenced
+                uint32_t temp=0,i=0;
+../Src/freertos.c(234): warning:  #177-D: variable "i" was declared but never referenced
+                uint32_t temp=0,i=0;
+../Src/freertos.c(236): warning:  #177-D: variable "GPIO_InitStruct" was declared but never referenced
+    GPIO_InitTypeDef GPIO_InitStruct;
+../Src/freertos.c(360): warning:  #223-D: function "SystemClock_Config" declared implicitly
+    SystemClock_Config();
+../Src/freertos.c(351): warning:  #177-D: variable "temp" was declared but never referenced
+        uint32_t temp=0,i=0;
+../Src/freertos.c(351): warning:  #177-D: variable "i" was declared but never referenced
+        uint32_t temp=0,i=0;
+../Src/freertos.c(352): warning:  #177-D: variable "GPIO_InitStruct" was declared but never referenced
+        GPIO_InitTypeDef GPIO_InitStruct;
+../Src/freertos.c(525): warning:  #223-D: function "rtc_init" declared implicitly
+        rtc_init();
+../Src/freertos.c(530): warning:  #223-D: function "lis2ds12_init" declared implicitly
+    if(lis2ds12_init()==0)
+../Src/freertos.c(536): warning:  #223-D: function "Loop_Test_Pedometer" declared implicitly
+        Loop_Test_Pedometer();
+../Src/freertos.c(539): warning:  #223-D: function "iqs263_init" declared implicitly
+        if(iqs263_init()==0)
+../Src/freertos.c(546): warning:  #223-D: function "flash_init" declared implicitly
+        flash_init();
+../Src/freertos.c(590): warning:  #223-D: function "lcd_init" declared implicitly
+        lcd_init();
+../Src/freertos.c(601): warning:  #223-D: function "read_batt" declared implicitly
+                read_batt();
+../Src/freertos.c(602): warning:  #223-D: function "RTC_Read_datetime" declared implicitly
+                RTC_Read_datetime(curr_time,1);
+../Src/freertos.c(604): warning:  #223-D: function "lcd_display_on" declared implicitly
+                lcd_display_on(1);
+../Src/freertos.c(605): warning:  #223-D: function "lcd_disp_clear" declared implicitly
+                lcd_disp_clear();
+../Src/freertos.c(612): warning:  #223-D: function "lcd_disp_time" declared implicitly
+                        lcd_disp_time(1,40,data,80,40);
+../Src/freertos.c(614): warning:  #223-D: function "lcd_disp_date" declared implicitly
+                        lcd_disp_date(1,205,data,29,15);
+../Src/freertos.c(618): warning:  #223-D: function "lcd_disp_bmp" declared implicitly
+                        lcd_disp_bmp(1,40,1);
+../Src/freertos.c(619): warning:  #223-D: function "lcd_disp_font" declared implicitly
+                        lcd_disp_font(1,130,1,2,29,29);
+../Src/freertos.c(621): warning:  #223-D: function "lcd_disp_number" declared implicitly
+                        lcd_disp_number(10,160,data,29,12);
+../Src/freertos.c(630): warning:  #223-D: function "lcd_disp_bmp" declared implicitly
+                        lcd_disp_bmp(1,40,2);
+../Src/freertos.c(631): warning:  #223-D: function "lcd_disp_font" declared implicitly
+                        lcd_disp_font(1,140,4,3,29,29);
+../Src/freertos.c(632): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                        sprintf(data,"%.1f",(  ((float)data_header[curr_index].total_step_data*sys_para.step_len)/100000  )*60*1.036);
+../Src/freertos.c(635): warning:  #223-D: function "lcd_disp_number" declared implicitly
+                        lcd_disp_number(10,170,data,29,12);
+../Src/freertos.c(640): warning:  #223-D: function "lcd_disp_bmp" declared implicitly
+                        lcd_disp_bmp(1,40,3);
+../Src/freertos.c(641): warning:  #223-D: function "lcd_disp_font" declared implicitly
+                        lcd_disp_font(1,140,5,2,29,29);
+../Src/freertos.c(643): warning:  #223-D: function "lcd_disp_number" declared implicitly
+                        lcd_disp_number(10,170,data,29,12);
+../Src/freertos.c(648): warning:  #223-D: function "lcd_disp_number" declared implicitly
+                lcd_disp_number(1,1,data,29,12);
+../Src/freertos.c(649): warning:  #223-D: function "lcd_disp_battery" declared implicitly
+                lcd_disp_battery(batt_status);
+../Src/freertos.c(655): warning:  #223-D: function "lcd_display_update" declared implicitly
+                        lcd_display_update(1);
+../Src/freertos.c(658): warning:  #223-D: function "lcd_display_update" declared implicitly
+                        lcd_display_update(2);
+../Src/freertos.c(587): warning:  #177-D: variable "old_batt_status" was declared but never referenced
+        uint8_t old_batt_status=0;
+../Src/freertos.c(676): warning:  #223-D: function "handleEvents" declared implicitly
+                temp=handleEvents();
+../Src/freertos.c(669): warning:  #550-D: variable "old_disp_sort" was set but never used
+        uint8_t temp=0,old_disp_sort=0;
+../Src/freertos.c(719): warning:  #223-D: function "LIS2DS12_ACC_GYRO_Pedo_Callback" declared implicitly
+                        LIS2DS12_ACC_GYRO_Pedo_Callback();
+../Src/freertos.c(726): warning:  #223-D: function "LIS2DS12_ACC_sample_Callback" declared implicitly
+                                LIS2DS12_ACC_sample_Callback(g_buffer);
+../Src/freertos.c(746): warning:  #223-D: function "flash_write_movedata" declared implicitly
+                        flash_write_movedata(&current_sensor_data,current_mode);
+../Src/freertos.c(700): warning:  #177-D: variable "curr_time" was declared but never referenced
+        uint8_t curr_time[3],hour,min;
+../Src/freertos.c(700): warning:  #177-D: variable "hour" was declared but never referenced
+        uint8_t curr_time[3],hour,min;
+../Src/freertos.c(700): warning:  #177-D: variable "min" was declared but never referenced
+        uint8_t curr_time[3],hour,min;
+../Src/freertos.c(701): warning:  #177-D: variable "flag" was declared but never referenced
+        uint8_t flag=4;
+../Src/freertos.c(784): warning:  #223-D: function "uart2_read" declared implicitly
+        uart2_read(1);
+../Src/freertos.c(790): warning:  #223-D: function "rece_dispatch" declared implicitly
+                rece_dispatch();
+../Src/freertos.c(817): warning:  #223-D: function "rtc_wakeup" declared implicitly
+                                rtc_wakeup(1);
+../Src/freertos.c(821): warning:  #223-D: function "rtc_wakeup" declared implicitly
+                                rtc_wakeup(0);
+../Src/freertos.c(853): warning:  #223-D: function "rtc_wakeup" declared implicitly
+                                                        rtc_wakeup(1);
+../Src/freertos.c(858): warning:  #223-D: function "rtc_wakeup" declared implicitly
+                                                        rtc_wakeup(0);
+../Src/freertos.c(102): warning:  #177-D: variable "sport_timer_id" was declared but never referenced
+  static osTimerId sport_timer_id;
+../Src/freertos.c: 53 warnings, 0 errors
 linking...
-Program Size: Code=48784 RO-data=75816 RW-data=9152 ZI-data=56616  
+Program Size: Code=49128 RO-data=75816 RW-data=9152 ZI-data=56616  
 FromELF: creating hex file...
-"51822_st401\51822_st401.axf" - 0 Error(s), 14 Warning(s).
+"51822_st401\51822_st401.axf" - 0 Error(s), 53 Warning(s).
 
 <h2>Software Packages used:</h2>
 

@@ -65,10 +65,10 @@ void MX_GPIO_Init(void)
   __GPIOA_CLK_ENABLE();
   __GPIOB_CLK_ENABLE();
 
-  /*Configure GPIO pin : PA1 */
-  GPIO_InitStruct.Pin = GPIO_PIN_1;
+  /*Configure GPIO pins : PA1 PA9 PA10 PA12 */
+  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_12;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PA4 PA7 PA8 PA15 */
@@ -104,23 +104,12 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA9 PA10 PA12 */
-  GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_12;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
   /*Configure GPIO pin : PA11 */
   GPIO_InitStruct.Pin = GPIO_PIN_11;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PB6 */
-  GPIO_InitStruct.Pin = GPIO_PIN_6;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_15, GPIO_PIN_RESET);
@@ -154,13 +143,13 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		return;
   if(GPIO_Pin == GPIO_PIN_11)
   {
-		LIS2DS12_ACC_Tap_Callback();
+		//LIS2DS12_ACC_Tap_Callback();
     Info_Handler("g-sensor interrupt 11!");		
 
   }
 	else if(GPIO_Pin == GPIO_PIN_12)
 	{
-		LIS2DS12_ACC_GYRO_Pedo_Callback();
+		//LIS2DS12_ACC_GYRO_Pedo_Callback();
 		Info_Handler("g-sensor interrupt 12!");		
 	}
 	else if(GPIO_Pin == GPIO_PIN_0)
@@ -173,13 +162,14 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	else if(GPIO_Pin == GPIO_PIN_9)
 	{
 		//button
-		if(button_flag==0)
+		  button_flag=1;
 			send_message(5);
 
 	}
 	else if(GPIO_Pin == GPIO_PIN_1)
   {
-    Info_Handler("51822 int!");		
+    //Info_Handler("51822 int!");	
+		send_message(6);
 
   }
 

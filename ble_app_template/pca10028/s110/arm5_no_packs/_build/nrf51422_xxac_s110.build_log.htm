@@ -26,20 +26,46 @@ Project File Date:  04/23/2016
 
 <h2>Output:</h2>
 Build target 'nrf51422_xxac_s110'
-compiling comm.c...
-..\..\..\src\comm.c(45): warning:  #223-D: function "eric_uart_send" declared implicitly
-        eric_uart_send(s_buffer,6);
-..\..\..\src\comm.c(57): warning:  #223-D: function "eric_uart_send" declared implicitly
-        eric_uart_send(s_buffer,7);
-..\..\..\src\comm.c(91): warning:  #223-D: function "send_data_phone" declared implicitly
-                        send_data_phone(&data[1],len);
-..\..\..\src\comm.c(76): warning:  #177-D: variable "temp" was declared but never referenced
-        uint8_t *temp;
-..\..\..\src\comm.c: 4 warnings, 0 errors
+compiling main.c...
+..\..\..\main.c(132): warning:  #223-D: function "eric_uart_send" declared implicitly
+        eric_uart_send(p_data,length);
+..\..\..\main.c(175): warning:  #223-D: function "ble_wechat_target_update" declared implicitly
+        ble_wechat_target_update(&m_ble_wechat, target );
+..\..\..\main.c(161): warning:  #177-D: variable "temp" was declared but never referenced
+        static uint32_t temp=0;
+..\..\..\main.c(379): warning:  #177-D: variable "bas_init" was declared but never referenced
+      ble_bas_init_t bas_init;
+..\..\..\main.c(380): warning:  #177-D: variable "dis_init" was declared but never referenced
+      ble_dis_init_t dis_init;
+..\..\..\main.c(381): warning:  #177-D: variable "hrs_init" was declared but never referenced
+        ble_hrs_init_t hrs_init;
+..\..\..\main.c(384): warning:  #177-D: variable "body_sensor_location" was declared but never referenced
+        uint8_t         body_sensor_location;
+..\..\..\main.c(925): warning:  #550-D: variable "temp" was set but never used
+      unsigned char temp;
+..\..\..\main.c(971): warning:  #223-D: function "SEGGER_RTT_Init" declared implicitly
+  SEGGER_RTT_Init();
+..\..\..\main.c(972): warning:  #223-D: function "eric_uart_Init" declared implicitly
+        eric_uart_Init();
+..\..\..\main.c(973): warning:  #223-D: function "comm_init" declared implicitly
+        comm_init();
+..\..\..\main.c(1002): warning:  #223-D: function "rece_dispatch" declared implicitly
+                                        rece_dispatch(buffer);
+..\..\..\main.c(154): warning:  #177-D: function "sensor_timeout_handler" was declared but never referenced
+  static void sensor_timeout_handler(void * p_context)
+..\..\..\main.c(203): warning:  #177-D: function "blinky_timeout_handler" was declared but never referenced
+  static void blinky_timeout_handler(void * p_context)
+..\..\..\main.c(529): warning:  #177-D: function "application_timers_start" was declared but never referenced
+  static void application_timers_start(void)
+..\..\..\main.c(869): warning:  #177-D: function "uart_init" was declared but never referenced
+  static void uart_init(void)
+..\..\..\main.c(899): warning:  #177-D: function "buttons_leds_init" was declared but never referenced
+  static void buttons_leds_init(bool * p_erase_bonds)
+..\..\..\main.c: 17 warnings, 0 errors
 linking...
-Program Size: Code=29384 RO-data=396 RW-data=424 ZI-data=6920  
+Program Size: Code=24568 RO-data=380 RW-data=404 ZI-data=6916  
 FromELF: creating hex file...
-".\_build\nrf51422_xxac_s110.axf" - 0 Error(s), 4 Warning(s).
+".\_build\nrf51422_xxac_s110.axf" - 0 Error(s), 17 Warning(s).
 
 <h2>Software Packages used:</h2>
 

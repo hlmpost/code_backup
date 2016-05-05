@@ -54,3 +54,22 @@ void GPIO_ToggleBit(uint32_t pin_number)
 {
 	NRF_GPIO->OUT ^= (1 << pin_number);
 }
+
+//------------------------------------
+//low power
+void io_sleep()
+{
+		GPIO_InitType GPIO_InitStruct;
+
+	GPIO_InitStruct.dir 	= GPIO_PIN_CNF_DIR_Input;
+	GPIO_InitStruct.pull 	= GPIO_PIN_CNF_PULL_Disabled;
+	GPIO_InitStruct.sense 	= GPIO_PIN_CNF_SENSE_Disabled;
+	GPIO_InitStruct.input 	= GPIO_PIN_CNF_INPUT_Disconnect;
+	for(int i=0;i<31;i++)
+	{
+		if(i==9 || i==11 || i==13)
+			continue;
+		GPIO_Init(i, &GPIO_InitStruct);
+	}
+
+}

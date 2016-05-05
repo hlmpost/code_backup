@@ -91,7 +91,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
     /* Peripheral interrupt init*/
-    HAL_NVIC_SetPriority(USART2_IRQn, 0, 0);
+    HAL_NVIC_SetPriority(USART2_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(USART2_IRQn);
   /* USER CODE BEGIN USART2_MspInit 1 */
 
@@ -138,7 +138,7 @@ if(HAL_UART_Receive_IT(&huart2,&temp,1)!=HAL_OK)
 //---------------------------------------------------------
 void uart_send(uint8_t *buffer,uint8_t len)
 {
-	HAL_UART_Transmit_IT(&huart2,buffer,len);
+	HAL_UART_Transmit(&huart2,buffer,len,1000);
 }
 //--------------------------------------------------------------
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
@@ -193,7 +193,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 							index=1;
 							command_start=0;//recover
 					}
-					HAL_UART_Receive_IT(&huart2,&temp,1);
+					//HAL_UART_Receive_IT(&huart2,&temp,1);
+					uart_read();
         }
 }
 /* USER CODE END 1 */

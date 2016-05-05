@@ -27,4 +27,6 @@
 51822_st401\stm32f4xx_hal_gpio.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
 51822_st401\stm32f4xx_hal_gpio.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 51822_st401\stm32f4xx_hal_gpio.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
+51822_st401\stm32f4xx_hal_gpio.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc.h
+51822_st401\stm32f4xx_hal_gpio.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc_ex.h
 51822_st401\stm32f4xx_hal_gpio.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h

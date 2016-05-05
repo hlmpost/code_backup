@@ -5,6 +5,8 @@
 "51822_st401\main.o"
 "51822_st401\gpio.o"
 "51822_st401\comm.o"
+"51822_st401\segger_rtt.o"
+"51822_st401\segger_rtt_printf.o"
 "51822_st401\startup_stm32f401xe.o"
 "51822_st401\stm32f4xx_hal_flash.o"
 "51822_st401\stm32f4xx_hal_tim.o"

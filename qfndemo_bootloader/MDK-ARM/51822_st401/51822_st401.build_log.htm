@@ -22,11 +22,27 @@ Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
 E:\项目\51822\st资料\test\qfndemo_bootloader\MDK-ARM\51822_st401.uvprojx
-Project File Date:  04/19/2016
+Project File Date:  04/29/2016
 
 <h2>Output:</h2>
 Build target '51822_st401'
-"51822_st401\51822_st401.axf" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+../Src/main.c(106): warning:  #223-D: function "update_start" declared implicitly
+                update_start();
+../Src/main.c(107): warning:  #223-D: function "uart_read" declared implicitly
+                uart_read();
+../Src/main.c(108): warning:  #223-D: function "send_shakehand" declared implicitly
+                send_shakehand(1);
+../Src/main.c(120): warning:  #223-D: function "JumpToApp" declared implicitly
+                        JumpToApp();
+../Src/main.c(124): warning:  #223-D: function "rece_dispatch" declared implicitly
+                        rece_dispatch();
+../Src/main.c(83): warning:  #177-D: variable "count1" was declared but never referenced
+  uint8_t count=0,count1=0;
+../Src/main.c: 6 warnings, 0 errors
+linking...
+Program Size: Code=10612 RO-data=480 RW-data=152 ZI-data=1744  
+"51822_st401\51822_st401.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 

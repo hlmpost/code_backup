@@ -6,6 +6,7 @@
 //变量
 extern uint8_t data_buffer[];
 static uint8_t buffer[10];//串口发送数据用，不能在堆栈
+extern uint8_t update_flag;
 
 //flash address
 #define ADDR_FLASH_SECTOR_0     (0x08000000) /* Base @ of Sector 0, 16 Kbytes */
@@ -27,7 +28,6 @@ typedef  void (*FunVoidType)(void);
 static FunVoidType JumpToApplication;
 static uint32_t m_JumpAddress;
 
-uint8_t  update_flag=0;//升级中的标志
 extern UART_HandleTypeDef huart2;
 
 //-------------------------------------------------------------------
@@ -148,6 +148,17 @@ static uint32_t GetSector(uint32_t Address)
 
   return sector;
 }
+//-------------------------------------------------------------
+//------------------------------------------------------
+//计算校验和
+uint8_t check_sum(uint8_t* data,uint8_t len)
+{
+	uint8_t temp=0;
+	for(int i=0;i<len;i++)
+		temp+=data[i];
+	return temp;
+}
+
 //---------------------------------------------------------
 //update start
 uint8_t update_start()
@@ -157,15 +168,14 @@ uint8_t update_start()
 	//erase flash
 	uint8_t temp;
 	current_add=FLASH_ROM_SECTOR_ADDR;
-	temp=*((uint8_t *)current_add);
-	temp=*((uint8_t *)current_add+1);
+	//temp=*((uint8_t *)current_add);
+	//temp=*((uint8_t *)current_add+1);
 
-	update_flag=1;
 	HAL_FLASH_Unlock();
 	EraseInitStruct.Sector =  GetSector(FLASH_ROM_SECTOR_ADDR);
 	EraseInitStruct.TypeErase = FLASH_TYPEERASE_SECTORS;
 	EraseInitStruct.VoltageRange = FLASH_VOLTAGE_RANGE_3;
-	EraseInitStruct.NbSectors = 1;
+	EraseInitStruct.NbSectors = 4;
 	if(HAL_FLASHEx_Erase(&EraseInitStruct, &SectorError) != HAL_OK)
 	{ 
 				return 0;
@@ -190,15 +200,33 @@ void update_finish()
 
 }
 //---------------------------------------
-void update_data()
+unsigned char update_data()
 {
-	//program data
-	for(int i=0;i<data_buffer[4];i++)
+	if(data_buffer[4]<3)
 	{
-		HAL_FLASH_Program(FLASH_TYPEPROGRAM_BYTE,current_add, data_buffer[5+i]);
-		current_add++;
+		return 0;
 	}
+	//program data
+	for(int i=0;i<(data_buffer[4]-2);i++)
+	{
+		HAL_FLASH_Program(FLASH_TYPEPROGRAM_BYTE,current_add, data_buffer[7+i]);
+		current_add+=1;
+	}
+	return 1;
 	
+}
+//------------------------------------------------
+void send_sortno()
+{
+	uint16_t temp=data_buffer[6];
+	temp=(temp<<8)|data_buffer[5];
+	buffer[0]=0xfe;
+	buffer[1]=0x05;
+	buffer[2]=0x21;//command
+	buffer[3]=0x02;
+	memcpy(&buffer[4],(uint8_t *)&temp,2);
+	buffer[6]=check_sum(buffer,6);
+	uart_send(buffer,7);
 }
 //-----------------------------------------
 void update_exit()
@@ -208,15 +236,6 @@ void update_exit()
 	current_add=FLASH_ROM_SECTOR_ADDR;
 	update_flag=0;
 
-}
-//------------------------------------------------------
-//计算校验和
-uint8_t check_sum(uint8_t* data,uint8_t len)
-{
-	uint8_t temp=0;
-	for(int i=0;i<len;i++)
-		temp+=data[i];
-	return temp;
 }
 //---------------------------------------------------
 //发送数据确认命令
@@ -254,15 +273,21 @@ void rece_dispatch()
 	//解析命令
 	switch(data_buffer[3])
 	{
-		case 0x20://启动升级命令
-			update_start();
-			break;
 		case 0x21://接收固件数据
-			update_data();
+			if(update_data()==1)
+				send_sortno();
+			else
+				send_shakehand(0);
 			break;
 		case 0x22://结束升级命令
-			update_finish();
-			JumpToApp();
+			if(update_data()==1)
+			{	
+				send_sortno();
+				update_finish();
+				JumpToApp();
+			}
+			else
+				send_shakehand(0);
 			break;
 		case 0x23://中断升级命令
 			update_exit();
@@ -271,9 +296,4 @@ void rece_dispatch()
 			send_shakehand(0);//收到异常命令
 			return;
 	};
-	if(data_buffer[3]!=0x01)
-	{
-		//回复确认收到
-		send_shakehand(1);
-	}
 }
